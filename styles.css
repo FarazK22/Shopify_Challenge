@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.item {
+    flex-shrink: 3;
+}
+
+.liked {
+    border: 1rem solid green
+}
+
+.unliked {
+    border: 1rem solid red
+}
