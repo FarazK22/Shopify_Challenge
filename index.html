@@ -6,25 +6,85 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spacestagram!</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <div id='header'>
-        <h1 id='spaceHead'>Spacestagram</h1>
-        <h4>Brought to you by NASA's Astronomy Photo of The Day API</h4>
-    </div>
 
 
-    <h1>IMAGE</h1>
-    <div id="container">
+    <!-- Navbar -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Spacestagram</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                </ul>
+                <span class="navbar-text">
+                    Brought to you by NASA's Astronomy Photo of The Day API
+                </span>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <script>
+
+        sendApiRequest();
+
+        // Asynchronous function that sends the API request to NASA APOD API
+        async function sendApiRequest() {
+            const API_Key = 'YLicbNKWnHymGEo7zCllC60Al37rAwb1Hretr647'
+            let res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_Key}`)
+            let data = await res.json();
+            displayImage(data);
+        }
+
+        // Converts API data into an image that is displayed on screen
+        function displayImage(data) {
+            document.getElementById('nasaImage').src = data.url;
+            const nasaImg = document.querySelector('#nasaImage');
+            nasaImg.classList.add('item');
+
+        }
+
+    </script>
+
+
+
+    <div class='container'>
+        <!-- Script meant to load 5 most recent spacestagram images -->
+        <!-- <script>
+            const container = document.querySelector('#container')
+            for (let i = 0; i < 5; i++) {
+                const test = document.createElement('h1')
+                test.innerHTML = 'TEST'
+                container.append(test);
+            }
+        </script> -->
+        <div class="card col-6" style="width: 18rem;">
+            <img id='nasaImage' src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+                <Button id='like' class='btn btn-primary'>Like</Button>
+                <button id='unlike' class='btn btn-danger'>Unlike</button>
+            </div>
+        </div>
+
 
     </div>
 
     <div>
-        <Button id='like'>Like</Button>
-        <button id='unlike'>Unlike</button>
     </div>
 
     <script src='script.js'></script>
