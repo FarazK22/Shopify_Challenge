@@ -34,52 +34,60 @@
         </div>
     </nav>
 
-
-
-    <script>
-
-        sendApiRequest();
-
-        // Asynchronous function that sends the API request to NASA APOD API
-        async function sendApiRequest() {
-            const API_Key = 'YLicbNKWnHymGEo7zCllC60Al37rAwb1Hretr647'
-            let res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_Key}`)
-            let data = await res.json();
-            displayImage(data);
-        }
-
-        // Converts API data into an image that is displayed on screen
-        function displayImage(data) {
-            document.getElementById('nasaImage').src = data.url;
-            const nasaImg = document.querySelector('#nasaImage');
-            nasaImg.classList.add('item');
-
-        }
-
-    </script>
-
-
-
     <div class='container'>
         <!-- Script meant to load 5 most recent spacestagram images -->
-        <!-- <script>
-            const container = document.querySelector('#container')
+        <script>
+            const container = document.querySelector('.container')
             for (let i = 0; i < 5; i++) {
-                const test = document.createElement('h1')
-                test.innerHTML = 'TEST'
-                container.append(test);
+                const wrapper = document.createElement('div');
+                const test = document.createElement('div');
+                const body = document.createElement('div');
+                const image = document.createElement('img');
+                const header = document.createElement('h5');
+                const description = document.createElement('p');
+                const likeButton = document.createElement('button');
+                const unlikeButton = document.createElement('button');
+
+                wrapper.className = "d-flex justify-content-center"
+
+                test.className = 'card'
+                test.style = 'width: 30rem;'
+
+                image.id = 'nasaImage';
+                image.src = '...';
+                image.className = 'card-img-top'
+                image.alt = '...';
+
+                body.className = 'card-body'
+
+                header.className = 'card-title'
+                header.innerHTML = 'Card title'
+
+                description.className = 'card-text'
+                description.innerHTML = 'Some quick example text to build on the card title and make up the bulk of the card\'s content.'
+
+                likeButton.id = 'like'
+                likeButton.className = 'btn btn-primary'
+                likeButton.innerHTML = 'Like'
+
+                unlikeButton.id = 'unlike'
+                unlikeButton.className = 'btn btn-danger'
+                unlikeButton.innerHTML = 'Unlike'
+
+
+                body.appendChild(header);
+                body.appendChild(description);
+                body.appendChild(likeButton);
+                body.appendChild(unlikeButton);
+                test.appendChild(image);
+                test.appendChild(body);
+                wrapper.appendChild(test);
+                container.append(wrapper);
+
             }
-        </script> -->
-        <div class="card col-6" style="width: 18rem;">
-            <img id='nasaImage' src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                <Button id='like' class='btn btn-primary'>Like</Button>
-                <button id='unlike' class='btn btn-danger'>Unlike</button>
-            </div>
-        </div>
+        </script>
+
+
 
 
     </div>
@@ -87,6 +95,7 @@
     <div>
     </div>
 
+    <script src='apireq.js'></script>
     <script src='script.js'></script>
 </body>
 
