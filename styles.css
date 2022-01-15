@@ -1,8 +1,12 @@
+.card {
+    transition: all 0.15s;
+}
 
 .liked {
-    border: 1rem solid green
+    border: 0.1rem solid #C0C0C0;
+    box-shadow: 0.5em 0.5em 0.5em -0.4em #C0C0C0;
 }
 
 .unliked {
-    border: 1rem solid red
+
 }
