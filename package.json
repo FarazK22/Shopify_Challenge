@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "jquery": "^3.6.0"
+  },
+  "name": "shopfront",
+  "version": "1.0.0",
+  "main": "apireq.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FarazK22/Shopify_Challenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FarazK22/Shopify_Challenge/issues"
+  },
+  "homepage": "https://github.com/FarazK22/Shopify_Challenge#readme",
+  "description": ""
+}

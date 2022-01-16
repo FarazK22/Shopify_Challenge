@@ -1,92 +1,81 @@
-// Builds 5 card components to populate with API image
-for (let i = 0; i < 5; i++) {
-    const container = document.querySelector('.container');
-    const wrapper = document.createElement('div');
-    const test = document.createElement('div');
-    const body = document.createElement('div');
-    const image = document.createElement('img');
-    const header = document.createElement('h5');
-    const description = document.createElement('p');
-    const likeButton = document.createElement('button');
-    const unlikeButton = document.createElement('button');
+$('#datepicker-1').datepicker({
+    format: "yyyy-mm-dd"
+});
 
-    wrapper.className = "d-flex justify-content-center"
+$('#datepicker-2').datepicker({
+    format: "yyyy-mm-dd"
+});
 
-    test.className = 'card'
-    test.style = 'width: 30rem;'
+const goButton = document.getElementById('goButton');
 
-    image.id = 'nasaImage';
-    image.src = '...';
-    image.className = 'card-img-top'
-    image.alt = '...';
+goButton.addEventListener('click', () => {
+    const startDate = new Date(document.getElementById('datepicker-1').value);
+    const endDate = new Date(document.getElementById('datepicker-2').value);
+    const days = getDateRange(startDate, endDate);
+    buildCards(days);
+    displayImage();
+})
 
-    body.className = 'card-body'
-
-    header.className = 'card-title'
-    header.innerHTML = 'Card title'
-
-    description.className = 'card-text'
-    description.innerHTML = '....'
-
-    likeButton.id = `like-${i}`
-    likeButton.className = 'btn btn-primary'
-    likeButton.innerHTML = 'Like'
-
-    unlikeButton.id = 'unlike'
-    unlikeButton.className = 'btn btn-outline-danger'
-    unlikeButton.innerHTML = 'Unlike'
-
-
-    body.appendChild(header);
-    body.appendChild(description);
-    body.appendChild(likeButton);
-    body.appendChild(unlikeButton);
-    test.appendChild(image);
-    test.appendChild(body);
-    wrapper.appendChild(test);
-    container.append(wrapper);
-
-}
-
-const likeButtons = document.querySelectorAll('.btn.btn-primary');
-const unlikeButtons = document.querySelectorAll('.btn.btn-outline-danger');
-
-
-// Listen's for user's click on specific 'Like' button to trigger like effect
-for (i = 0; i < likeButtons.length; i++) {
-    const likeButton = likeButtons[i];
-    const card = likeButton.parentElement.parentElement;
-    likeButton.addEventListener('click', () => {
-        if (card.classList.contains('unliked')) {
-            card.classList.remove('unliked');
-            card.classList.add('liked');
-        } else {
-            card.classList.add('liked');
-        }
-
-        cardimg.classList.add('liked');
-    })
+function getDateRange(startDate, endDate) {
+    var timeDif = endDate.getTime() - startDate.getTime();
+    return timeDif / (1000 * 3600 * 24);
 }
 
 
-// Listen's for user's click on 'Unlike' button to trigger unlike effect
-for (i = 0; i < unlikeButtons.length; i++) {
-    const unlikeButton = unlikeButtons[i];
-    const card = unlikeButton.parentElement.parentElement;
-    unlikeButton.addEventListener('click', () => {
-        if (card.classList.contains('liked')) {
-            card.classList.remove('liked');
-            card.classList.add('unliked');
-        } else {
-            card.classList.add('unliked');
-        }
 
-        card.classList.add('unliked');
-    })
+function buildCards(days) {
+    const container = document.getElementById('card-container');
+    container.innerHTML = '';
+
+    for (let i = 0; i < days; i++) {     
+        const wrapper = document.createElement('div');
+        const test = document.createElement('div');
+        const body = document.createElement('div');
+        const image = document.createElement('img');
+        const header = document.createElement('h5');
+        const description = document.createElement('p');
+        const likeButton = document.createElement('button');
+        const unlikeButton = document.createElement('button');
+
+        wrapper.className = "d-flex justify-content-center"
+
+        test.className = 'card'
+        test.style = 'width: 30rem;'
+
+        image.id = 'nasaImage';
+        image.src = '...';
+        image.className = 'card-img-top'
+        image.alt = '...';
+
+        body.className = 'card-body'
+
+        header.className = 'card-title'
+        header.innerHTML = 'Card title'
+
+        description.className = 'card-text'
+        description.innerHTML = '....'
+
+        likeButton.id = `like-${i}`
+        likeButton.className = 'btn btn-primary'
+        likeButton.innerHTML = 'Like'
+
+        unlikeButton.id = 'unlike'
+        unlikeButton.className = 'btn btn-outline-danger'
+        unlikeButton.innerHTML = 'Unlike'
+
+
+        body.appendChild(header);
+        body.appendChild(description);
+        body.appendChild(likeButton);
+        body.appendChild(unlikeButton);
+        test.appendChild(image);
+        test.appendChild(body);
+        wrapper.appendChild(test);
+        container.append(wrapper);
+
+    }
 }
 
-
-displayImage();
 
 
 // Converts API data into an image that is displayed on card
@@ -107,4 +96,41 @@ async function displayImage() {
         currh.innerHTML = data.title;
         currb.innerHTML = data.explanation.substring(0, data.explanation.indexOf('.') + 1);
     }
+}
+
+const likeButtons = document.querySelectorAll('.btn.btn-primary');
+const unlikeButtons = document.querySelectorAll('.btn.btn-outline-danger');
+
+
+// Listen's for user's click on specific 'Like' button to trigger like effect
+for (i = 0; i < likeButtons.length; i++) {
+    const likeButton = likeButtons[i];
+    const card = likeButton.parentElement.parentElement;
+    likeButton.addEventListener('click', () => {
+        if (card.classList.contains('unliked')) {
+            card.classList.remove('unliked');
+            card.classList.add('liked');
+        } else {
+            card.classList.add('liked');
+        }
+
+        card.classList.add('liked');
+    })
+}
+
+
+// Listen's for user's click on 'Unlike' button to trigger unlike effect
+for (i = 0; i < unlikeButtons.length; i++) {
+    const unlikeButton = unlikeButtons[i];
+    const card = unlikeButton.parentElement.parentElement;
+    unlikeButton.addEventListener('click', () => {
+        if (card.classList.contains('liked')) {
+            card.classList.remove('liked');
+            card.classList.add('unliked');
+        } else {
+            card.classList.add('unliked');
+        }
+
+        card.classList.add('unliked');
+    })
 }
