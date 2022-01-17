@@ -1,13 +1,17 @@
-$('#datepicker-1').datepicker({
-    format: "yyyy-mm-dd"
-});
+$('#datepicker-1').datepicker({});
 
-$('#datepicker-2').datepicker({
-    format: "yyyy-mm-dd"
-});
+$('#datepicker-2').datepicker({});
+
+
+// Initialises like display on nav bar to read '0' likes
+var likes = 0;
+var likeDisplay = document.getElementById('like-display');
+likeDisplay.innerHTML = likes;
+
 
 const goButton = document.getElementById('goButton');
 
+// Listens for user's click on 'Go!' button to initiate loading of cards from selected date range
 goButton.addEventListener('click', () => {
     const startDate = new Date(document.getElementById('datepicker-1').value);
     const endDate = new Date(document.getElementById('datepicker-2').value);
@@ -17,11 +21,14 @@ goButton.addEventListener('click', () => {
     displayImage(dateRange);
 })
 
+// Returns the amount of days between datepicker1 input and datepicker2 input
 function getDays(startDate, endDate) {
     var timeDif = endDate.getTime() - startDate.getTime();
     return timeDif / (1000 * 3600 * 24);
 }
 
+
+// Returns an array of dates between datepicker1 date input and datepicker2 date input
 function getDateRange(startDate, endDate) {
     for (var arr = [], dt = new Date(startDate); dt <= endDate; dt.setDate(dt.getDate() + 1)) {
         arr.push(new Date(dt));
@@ -30,7 +37,7 @@ function getDateRange(startDate, endDate) {
 }
 
 
-
+// Takes input of days and builds as many cards as days selected in datepicker items, cards are built within 'card-container' div
 function buildCards(days) {
     const container = document.getElementById('card-container');
     container.innerHTML = '';
@@ -68,7 +75,7 @@ function buildCards(days) {
         likeButton.innerHTML = 'Like'
 
         unlikeButton.id = `unlike-${i}`
-        unlikeButton.className = 'btn btn-outline-danger'
+        unlikeButton.className = 'm-2 btn btn-outline-danger'
         unlikeButton.innerHTML = 'Unlike'
 
 
@@ -82,6 +89,7 @@ function buildCards(days) {
         container.append(wrapper);
 
     }
+
     linkButtons();
 }
 
@@ -101,15 +109,20 @@ async function displayImage(dateRange) {
         var currh = headers[i];
         var currb = descriptions[i];
         curr.src = data.url;
-        currh.innerHTML = data.title;
+        curr.alt = `Nasa's image of the day for ${data.date}`
+        currh.innerHTML = `${data.title} - <span class='h6 text-muted'> ${data.date} </span>`;
         currb.innerHTML = data.explanation.substring(0, data.explanation.indexOf('.') + 1);
     }
 }
 
 
+// Links 'Like' and 'Unlike' button to stylesheet to trigger like and unlike effects
 function linkButtons() {
     const likeButtons = document.getElementById('card-container').querySelectorAll('.btn.btn-primary');
     const unlikeButtons = document.getElementById('card-container').querySelectorAll('.btn.btn-outline-danger');
+
+    const likeBadge = document.createElement('span');
+    likeBadge.className = 'position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle';
 
 
     // Listen's for user's click on specific 'Like' button to trigger like effect
@@ -117,15 +130,23 @@ function linkButtons() {
         const likeButton = likeButtons[i];
         const card = likeButton.parentElement.parentElement;
         likeButton.addEventListener('click', () => {
+            likes = likes + 1;
+            likeDisplay.innerHTML = likes;
             if (card.classList.contains('unliked')) {
                 card.classList.remove('unliked');
                 card.classList.add('liked');
+                likeButton.appendChild(likeBadge);
             } else {
                 card.classList.add('liked');
+                likeButton.appendChild(likeBadge);
             }
 
             card.classList.add('liked');
+
+
         })
+
+
     }
 
 
@@ -134,14 +155,24 @@ function linkButtons() {
         const unlikeButton = unlikeButtons[i];
         const card = unlikeButton.parentElement.parentElement;
         unlikeButton.addEventListener('click', () => {
+            likes = likes - 1;
+            likeDisplay.innerHTML = likes;
             if (card.classList.contains('liked')) {
                 card.classList.remove('liked');
                 card.classList.add('unliked');
+                unlikeButton.previousElementSibling.removeChild(likeBadge);
             } else {
                 card.classList.add('unliked');
+                unlikeButton.previousElementSibling.removeChild(likeBadge);
             }
 
             card.classList.add('unliked');
+
+
         })
     }
+
 }
+
+
+
