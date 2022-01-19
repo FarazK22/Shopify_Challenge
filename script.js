@@ -13,6 +13,8 @@ const goButton = document.getElementById('goButton');
 
 // Listens for user's click on 'Go!' button to initiate loading of cards from selected date range
 goButton.addEventListener('click', () => {
+    likes = 0;
+    likeDisplay.innerHTML = likes;
     const startDate = new Date(document.getElementById('datepicker-1').value);
     const endDate = new Date(document.getElementById('datepicker-2').value);
     const days = getDays(startDate, endDate);
