@@ -4,7 +4,7 @@ Spacestagram is a platform for users to browse through all of NASA's Image of th
 
 # Installation
 
-Page is static
+Page is static so user simply has to visit Github Pages link
 
 # Usage
 
@@ -19,5 +19,9 @@ Under each image card will be a blue 'Like' button. Clicking on the 'Like' butto
 ## Unliking an Image
 
 Under each image card will also be an 'Unlike' button. Clicking on the 'Unlike' button will remove any golden border around the card. The 'Liked' counter in the header will update with the number of liked images decreasing depending on the number of photos unliked. If the photo was not liked prior to clicking 'Unlike' there will be no effect
+
+# Future considerations
+
+The next thing I would implement for this project would be proper error handling to handle issues such as when the API sends the user back a video instead of an image or simply an image that does not exist. Other errors can include the user entering an invalid input into the datepicker boxes (date out of range, invalid date format, etc.). Additionally, I would work on adding loading screens to eliminate the awkward pause between the user hitting 'Go!' and the cards loading on screen. 
 
 
